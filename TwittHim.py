@@ -1,20 +1,15 @@
-from flask import Flask 
+from flask import Flask, request, render_template
 import sys
 import datetime # bibliothèque pour utiliser la date et l'heure
-
+import redis
 
 app = Flask(__name__)
-
-
+db = redis.Redis()
 
 class User:
-    _id = 0
-    _username = ""
-    _userTweets = []
-
     def __init__(self, username):
-        self._id += 1
         self._username = username
+        self._tweets = []
 
 # getters
     def getId(self):
@@ -29,6 +24,16 @@ class User:
 # setters
     def addTweet(self, tweet):
         self._userTweets.append(tweet)
+
+
+
+###############################REDIS#####################################
+# key=timestamp, value=’{“author”: “username”, “tweet”: ”message”}’
+# key=username, value=[timestamp_1, timestamp_2, timestamp_3]
+
+
+
+
 
 ###########################STOCKAGE DE VARIABLES GLOBALES################################################
 
@@ -46,36 +51,37 @@ def showAllTweets():                    #parcours la liste des tweets pour tous 
         print(Tweets[i])
 
 @app.route("/addUser/<string:name>", methods=['POST'])
-def addUser(name):                      #Vérifie l'unicité du nom d'utilisateur puis créer le nouvel utilisateur
-    for i in range(0,len(Users)):
-        if Users[i]==name:
-            return "This user name is already used"
-        else:
-            new = User(name)
-            print("The user have been added succesfully")
-            Users.append(new)
-            return new
+def addUser(name):
+    if name in User._users:
+        return "This user name is already used"
+    else:
+        new = User(name)
+        print("The user has been added successfully")
+        return new
         
 @app.route("/addTweet/<string:user>", methods=['POST'])
-def addTweet(user):                             #Demande à l'utilisateur de saisir son tweet ainsi que le sujet du tweet
-    text = input('Write down your thought:\n')  #puis créer le tweet et stock les informations dans la variable Tweets et Topics
-    topic = input('What is your tweet about?\n')
+def addTweet(user):
+    text = request.form['text']
+    topic = request.form['topic']
     tweet=[text,topic,tweet_id]
-    for i in range (0,len(Users)):
-        if Users[i]==user:
-            Users[i].addTweet(tweet)
-            tweet_id+=1
+    for u in User._users.values():
+        if u.getUsername() == user:
+            u.addTweet(tweet)
     Tweets.append(tweet)
-    if isTopicIn:
-        Topics.append(tweet[1])
+    if isTopicIn(topic):
+        Topics.append(topic)
+    tweet_id += 1
+    return "Tweet added successfully"
 
-@app.route("showUserTweets/<string:user>", methods=['GET', 'POST'])
+@app.route("/showUserTweets/<string:user>", methods=['GET'])
 def showUserTweets(user):
-    for i in len(Users):
-        if Users[i]==user:
-            Utweets=Users[i].getTweets()
-            for j in len(Utweets):
-                print(Utweets[j])
+    if user not in User._users:
+        return "User not found"
+    else:
+        Utweets = User._users[user].getTweets()
+        for tweet in Utweets:
+            print(tweet)
+        return ""
 
 
 def isTopicIn(topic):
@@ -107,3 +113,6 @@ admin = User('Nicolas')
 Users.append(admin)
 addTweet(admin)
 showAllTweets()
+
+if __name__ == "__main__":
+    app.run()
