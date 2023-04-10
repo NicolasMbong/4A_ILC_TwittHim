@@ -28,7 +28,7 @@ def showAllTweets():
     return str(tweets)
 
 
-@app.route("/addUser/<string:name>", methods=["POST"])
+@app.route("/addUser/<string:name>", methods=["POST","POST"])
 def addUser(name):
     if db.hexists("users", name):
         return "This user name is already used"
