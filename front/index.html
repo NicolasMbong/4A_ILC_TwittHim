@@ -2,11 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TweetHim</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <header>
+        <h1>TweetHim</h1>
+    </header>
+
+    <main>
+        <form id="add-user-form">
+            <h2>Add User</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <form id="add-tweet-form">
+            <h2>Add Tweet</h2>
+            <label for="user">User:</label>
+            <select id="user" name="user"></select>
+            <label for="text">Text:</label>
+            <textarea id="text" name="text" required></textarea>
+            <label for="topic">Topic:</label>
+            <input type="text" id="topic" name="topic" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <form id="show-user-tweets-form">
+            <h2>Show User Tweets</h2>
+            <label for="show-user-tweets-user">User:</label>
+            <select id="show-user-tweets-user" name="user"></select>
+            <button type="submit">Show Tweets</button>
+        </form>
+
+        <form id="show-topic-form">
+            <h2>Show Topic Tweets</h2>
+            <label for="show-topic-name">Topic:</label>
+            <input type="text" id="show-topic-name" name="topic" required>
+            <button type="submit">Show Tweets</button>
+        </form>
+
+        <div id="tweets">
+            <h2>Tweets</h2>
+            <ul id="tweet-list"></ul>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
