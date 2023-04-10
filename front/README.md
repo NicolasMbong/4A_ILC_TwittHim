@@ -10,8 +10,8 @@ Ce projet représente la partie frontend de l'application TwittHim, permettant a
 ## Fonctionnalités
 Les principales fonctionnalités de l'application frontend incluent :
 
-* Ajouter un utilisateur
-*Ajouter un tweet pour un utilisateur donné
+* Ajouter un utilisateur 
+* Ajouter un tweet pour un utilisateur donné
 * Afficher les tweets d'un utilisateur donné
 * Afficher les tweets pour un sujet donné
 
