@@ -20,7 +20,7 @@ Les principales fonctionnalités de l'application frontend incluent :
 * HTML
 * CSS
 * JavaScript
-* Fetch API
+* 
 ## Configuration
 
 L'application frontend nécessite une connexion à l'API backend pour fonctionner correctement. 
