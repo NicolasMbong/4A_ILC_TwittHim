@@ -9,9 +9,9 @@ Cette partie du projet est le backend qui fournit une API  Flask RESTful pour la
 ## API
 Le backend fournit les API suivantes pour la gestion des utilisateurs et des tweets:  
 
-GET /showAllTweets affiche la liste de tout les tweets.  
-POST /addUser/name ajoute un nouvel utilisateur.  
-GET /showUserTweets/User récupère la liste de tous les tweets de l'utilisateur spécifié.  
-POST /addTweet/User ajoute un nouveau tweet pour l'utilisateur spécifié.  
-GET /showTopic/Topic récupère la liste de tous les tweets pour le sujet spécifié.  
-POST /reTweet/tweet_id/User permet à un utilisateur de retweeter.  
+* GET /showAllTweets affiche la liste de tout les tweets.  
+* POST /addUser/name ajoute un nouvel utilisateur.  
+* GET /showUserTweets/User récupère la liste de tous les tweets de l'utilisateur spécifié.  
+* POST /addTweet/User ajoute un nouveau tweet pour l'utilisateur spécifié.  
+* GET /showTopic/Topic récupère la liste de tous les tweets pour le sujet spécifié.  
+* POST /reTweet/tweet_id/User permet à un utilisateur de retweeter.  
