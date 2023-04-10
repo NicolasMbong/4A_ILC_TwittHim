@@ -11,27 +11,27 @@
 https://github.com/JeromeMSD/module_cloud-computing/blob/main/project.md
 
 
-##Table des matières
-#Installation
-#Utilisation
-#Problèmes
+## Table des matières
+# Installation
+# Utilisation
+# Problèmes
 
 
-##Installation
+## Installation
 
 
 
-#1. Cloner le dépôt: git clone https://github.com/NicolasMbong/4A_ILC_TwittHim.git
-#2. Installer les dépendances (redis, docker, flask)
+# 1. Cloner le dépôt: git clone https://github.com/NicolasMbong/4A_ILC_TwittHim.git
+# 2. Installer les dépendances (redis, docker, flask)
 
 
-##Utilisation
+## Utilisation
 
 Une fois dans le dossier Back, lance l'app avec la commande flask run ainsi que docker run --name TwittHim redis.
 Aller ensuite sur http://localhost:5000
 
 
-##Problèmes
+## Problèmes
 
 J'ai rencontrer différents problèmes lors de la réalisation de ce projet, je n'ai pas réussi à connecter correctement l'interface FrontEnd avec l'API.
 L'interface graphique réalisée en html/css n'as pas été détaillée par manque de temps.
