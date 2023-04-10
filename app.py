@@ -1,5 +1,5 @@
-from flask import Flask, request
 import datetime
+from flask import Flask, request
 import redis
 
 app = Flask(__name__)
@@ -19,16 +19,30 @@ class User:
     def getTweets(self):
         return self._tweets
 
+def add_tweet(author, text, topic):
+    tweet_id = db.incr("tweet_id")
+    timestamp = datetime.datetime.now().timestamp()
+    tweet = {"author": author, "text": text, "topic": topic, "timestamp": timestamp}
+    db.hset(f"tweet:{tweet_id}", mapping=tweet)
+    db.rpush(f"user_tweets:{author}", f"{timestamp}:{tweet_id}")
+    if not db.sismember("topics", topic):
+        db.sadd("topics", topic)
+
+
+add_tweet("john", "Hello world!", "programming")
+add_tweet("jane", "What a beautiful day!", "nature")
+add_tweet("Nicolas", "coding for my project", "programming")
+
 
 @app.route("/", methods=["GET"])
 def showAllTweets():
     tweets = []
-    # for tweet in db.scan_iter("tweet:*"):
-    #     tweets.append(db.hgetall(tweet))
+    for tweet in db.scan_iter("tweet:*"):
+        tweets.append(db.hgetall(tweet))
     return str(tweets)
 
 
-@app.route("/addUser/<string:name>", methods=["POST","GET"])
+@app.route("/addUser/<string:name>", methods=["POST"])
 def addUser(name):
     if db.hexists("users", name):
         return "This user name is already used"
