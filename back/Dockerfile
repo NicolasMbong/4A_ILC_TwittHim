@@ -1,10 +1,11 @@
-FROM ubuntu:16.04
+FROM python:3.18
 
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev && \
-    pip install redis
-    pip install Flask
-    
-CMD [ "export", "FLASK_APP=app.py" ]
-CMD [ "export", "FLASK_ENV=development" ]
+RUN pip install redis \
+    pip install Flask \
+    pip install flask-cors
+
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
+
 CMD [ "flask", "run"]

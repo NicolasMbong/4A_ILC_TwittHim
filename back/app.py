@@ -1,9 +1,11 @@
 import datetime
 from flask import Flask, request
+from flask_cors import CORS
 import redis
 
 app = Flask(__name__)
-db = redis.Redis()
+CORS(app)
+db = redis.Redis(decode_responses=True)
 
 class User:
     def __init__(self, username):
@@ -39,7 +41,7 @@ def showAllTweets():
     tweets = []
     for tweet in db.scan_iter("tweet:*"):
         tweets.append(db.hgetall(tweet))
-    return str(tweets)
+    return { "list": tweets }
 
 
 @app.route("/addUser/<string:name>", methods=["POST"])
